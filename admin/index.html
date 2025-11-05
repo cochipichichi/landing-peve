@@ -1,0 +1,22 @@
+
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🛠️ Admin</title>
+<link rel="stylesheet" href="../assets/css/styles.css"></head><body>
+<div class="container">
+  <div class="row" style="justify-content:space-between;align-items:center">
+    <h1>🛠️ Panel Admin</h1>
+    <div class="row"><a class="btn" href="../index.html">🏠 Inicio</a><button class="btn" onclick="logout()">🚪 Salir</button></div>
+  </div>
+  <div class="grid cols-2">
+    <div class="card"><h2>👥 Usuarios</h2><table id="ut" style="width:100%"></table></div>
+    <div class="card"><h2>📈 Exportar Progreso (CSV)</h2><button class="btn" onclick="exportCSV()">⬇️ Exportar</button></div>
+    <div class="card"><h2>⚙️ Integraciones</h2><p>Edita <code>config.json</code> para endpoints de Sheets, pagos y notificaciones.</p></div>
+  </div>
+</div>
+<script src="../assets/js/app.js"></script>
+<script>
+const me = current(); if(!me||me.role!=='admin') location.href='../index.html';
+const t = document.getElementById('ut'); const users = store.get('users',[]);
+t.innerHTML = '<tr><th>Nombre</th><th>Rol</th><th>Email</th></tr>'+users.map(u=>`<tr><td>${u.name}</td><td>${u.role}</td><td>${u.email}</td></tr>`).join('');
+</script></body></html>

@@ -1,0 +1,5 @@
+{
+  "apps_script_endpoint": "https://script.google.com/macros/s/REEMPLAZA_CON_TU_DEPLOY/exec",
+  "payments_webhook": "https://tu-dominio/pagos/webhook",
+  "notify_email": "contacto@educacioninmversiva.cl"
+}

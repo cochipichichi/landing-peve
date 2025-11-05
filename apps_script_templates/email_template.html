@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta charset="utf-8"><title>Bienvenido</title></head>
+  <body style="font-family:Arial,Helvetica,sans-serif;color:#111">
+    <div style="max-width:640px;margin:0 auto;border:1px solid #e5e7eb;border-radius:12px;padding:20px">
+      <h2 style="margin-top:0">🥽 Educación Inmversiva — Exámenes Libres</h2>
+      <p>Hola <b><?= data.name || 'Apoderado/a' ?></b>,</p>
+      <p>Gracias por tu interés. Recibimos tu pedido para el plan <b><?= data.plan.toUpperCase() ?></b> (<?= data.count ?> estudiante<?= (data.count>1?'s':'') ?>), cohorte <b><?= (data.cohort||'sin cohorte') ?></b>.</p>
+      <p><b>Total estimado:</b> $<?= (data.total||0) ?> CLP.</p>
+
+      <h3>✅ Siguientes pasos</h3>
+      <ol>
+        <li>Te contactaremos por correo/WhatsApp para confirmar el pago (Webpay/Mercado Pago).</li>
+        <li>Recibirás el acceso al portal del estudiante y al panel de apoderados.</li>
+        <li>Te enviaremos el calendario de la cohorte (simulacros, tutorías, semana exprés).</li>
+      </ol>
+
+      <h3>🔐 Garantía</h3>
+      <p>Si el estudiante rinde y no aprueba, tendrá acceso sin costo al siguiente período del mismo nivel (Plan Básico).</p>
+
+      <h3>📞 Contacto</h3>
+      <p>👨‍💻 Francisco Pinto — <a href="mailto:franciscoandresp@gmail.com">franciscoandresp@gmail.com</a> · +56 9 2002 7992<br>
+         👩‍🏫 Belén Acuña — <a href="mailto:belen.acpe@gmail.com">belen.acpe@gmail.com</a> · +56 9 6266 4960</p>
+
+      <p style="font-size:12px;color:#555">© Educación Inmversiva. Este correo fue enviado automáticamente desde el Web App de Google Apps Script.</p>
+    </div>
+  </body>
+</html>

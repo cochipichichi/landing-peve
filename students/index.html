@@ -1,0 +1,30 @@
+
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>👩‍🎓 Estudiante</title>
+<link rel="stylesheet" href="../assets/css/styles.css"></head><body>
+<div class="container">
+  <div class="row" style="justify-content:space-between;align-items:center">
+    <h1>👩‍🎓 Panel Estudiante</h1>
+    <div class="row"><a class="btn" href="../index.html">🏠 Inicio</a><button class="btn" onclick="logout()">🚪 Salir</button></div>
+  </div>
+  <div class="card"><h2>📈 Progreso</h2><div id="pg"></div></div>
+  <div class="card"><h2>🧪 Simulacros</h2>
+    <div class="row">
+      <button class="btn" onclick="mock('Lenguaje')">📝 Lenguaje</button>
+      <button class="btn" onclick="mock('Matemática')">🧮 Matemática</button>
+      <button class="btn" onclick="mock('Ciencias')">🔬 Ciencias</button>
+      <button class="btn" onclick="mock('Historia')">🌎 Historia</button>
+      <button class="btn" onclick="mock('Inglés')">🇬🇧 Inglés</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/app.js"></script>
+<script>
+const me = current(); if(!me||me.role!=='student') location.href='../index.html';
+function mock(sub){ const p=store.get('progress',[]); const i=p.findIndex(x=>x.user===me.id&&x.subject===sub);
+  const sc=Math.round(Math.random()*30+50); if(i>=0){p[i].percent=Math.max(p[i].percent,sc)} else {p.push({user:me.id,subject:sub,percent:sc})}
+  store.set('progress',p); render(); }
+function render(){ const data=store.get('progress',[]).filter(x=>x.user===me.id); renderProgress(document.querySelector('#pg'),data); }
+render();
+</script></body></html>

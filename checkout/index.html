@@ -1,0 +1,78 @@
+
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🛒 Comprar — Exámenes Libres</title>
+<link rel="stylesheet" href="../assets/css/styles.css"></head><body>
+<div class="container">
+  <div class="row" style="justify-content:space-between;align-items:center">
+    <h1>🛒 Comprar</h1>
+    <div class="row"><a class="btn" href="../index.html">🏠 Inicio</a></div>
+  </div>
+  <div class="card">
+    <h2>🧾 Datos del apoderado/a</h2>
+    <div class="row">
+      <input id="name" placeholder="Nombre completo" style="padding:10px;border-radius:10px;border:1px solid #2a3b63;background:#0f1830;color:#eaf1ff">
+      <input id="email" placeholder="Correo" style="padding:10px;border-radius:10px;border:1px solid #2a3b63;background:#0f1830;color:#eaf1ff">
+      <input id="phone" placeholder="Teléfono" style="padding:10px;border-radius:10px;border:1px solid #2a3b63;background:#0f1830;color:#eaf1ff">
+    </div>
+  </div>
+  <div class="card">
+    <h2>👧 Estudiantes</h2>
+    <div class="row">
+      <select id="plan" style="padding:10px;border-radius:10px;border:1px solid #2a3b63;background:#0f1830;color:#eaf1ff">
+        <option value="basic">Inicial — $69.000</option>
+        <option value="media">Media — $119.000</option>
+        <option value="premium">Premium — $249.000</option>
+      </select>
+      <input id="count" type="number" min="1" value="1" style="width:140px;padding:10px;border-radius:10px;border:1px solid #2a3b63;background:#0f1830;color:#eaf1ff">
+    </div>
+
+    <div class="row" style="margin-top:8px">
+      <label for="cohort" style="align-self:center">🗓️ Cohorte:&nbsp;</label>
+      <select id="cohort" style="padding:10px;border-radius:10px;border:1px solid #2a3b63;background:#0f1830;color:#eaf1ff">
+        <option value="junio">Junio</option>
+        <option value="octubre">Octubre</option>
+      </select>
+    </div>
+
+        <p class="badge">Descuentos: 2º hijo 20% · 3+ hijos 30% · Referidos 10%</p>
+    <div class="row"><button class="btn" onclick="calc()">🧮 Calcular</button><button class="btn" onclick="submitOrder()">💳 Confirmar pedido</button></div>
+    <p id="total" style="margin-top:10px"></p>
+  </div>
+  <div class="card">
+    <h2>🔒 Garantía</h2>
+    <p>Si rinde y no aprueba, acceso sin costo al siguiente período del mismo nivel (Básico).</p>
+  </div>
+</div>
+<script src="../assets/js/app.js"></script>
+<script>
+const PRICES={basic:69000,media:119000,premium:249000};
+function calc(){
+  const p = PRICES[$('#plan').value];
+  const n = Math.max(1, parseInt($('#count').value||'1'));
+  let total=0;
+  for(let i=1;i<=n;i++){
+    let price=p;
+    if(i===2) price = Math.round(p*0.8);
+    if(i>=3) price = Math.round(p*0.7);
+    total+=price;
+  }
+  $('#total').textContent = 'Total estimado: $'+ total.toLocaleString('es-CL');
+  return total;
+}
+async function submitOrder(){
+  const total = calc();
+  const payload = {
+    name: $('#name').value, email: $('#email').value, phone: $('#phone').value,
+    plan: $('#plan').value, cohort: $('#cohort').value, count: parseInt($('#count').value||'1'),
+    total, ts: new Date().toISOString()
+  };
+  const cfg = await fetch('../config.json').then(r=>r.json()).catch(()=>({}));
+  if(cfg.apps_script_endpoint){
+    try{ await postJSON(cfg.apps_script_endpoint, payload); alert('Pedido registrado. Te contactaremos para pago y acceso.'); }
+    catch(e){ alert('No se pudo enviar el pedido. Intenta nuevamente.'); }
+  }else{
+    alert('Demo: configura apps_script_endpoint en config.json');
+  }
+}
+</script></body></html>
