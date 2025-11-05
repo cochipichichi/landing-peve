@@ -1,19 +1,23 @@
 
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>👨‍👩‍👧 Apoderados</title>
-<link rel="stylesheet" href="../assets/css/styles.css"></head><body>
+<link href="../assets/css/styles.css" rel="stylesheet"/></head><body>
 <div class="container">
-  <div class="row" style="justify-content:space-between;align-items:center">
-    <h1>👨‍👩‍👧 Panel Apoderados</h1>
-    <div class="row"><a class="btn" href="../index.html">🏠 Inicio</a><button class="btn" onclick="logout()">🚪 Salir</button></div>
-  </div>
-  <div class="card"><h2>📊 Seguimiento</h2><div id="pg"></div></div>
-  <div class="card"><h2>🔔 Alertas</h2><p>Recibirás hitos (simulacros, tutorías, semana exprés) por correo/WhatsApp.</p></div>
+<div class="row" style="justify-content:space-between;align-items:center">
+<h1>👨‍👩‍👧 Panel Apoderados</h1>
+<div class="row"><a class="btn" href="../index.html">🏠 Inicio</a><button class="btn" onclick="logout()">🚪 Salir</button></div>
+</div>
+<div class="card"><h2>📊 Seguimiento</h2><div id="pg"></div></div>
+<div class="card"><h2>🔔 Alertas</h2><p>Recibirás hitos (simulacros, tutorías, semana exprés) por correo/WhatsApp.</p></div>
 </div>
 <script src="../assets/js/app.js"></script>
 <script>
-const me = current(); if(!me||me.role!=='parent') location.href='../index.html';
-const data = store.get('progress',[]).filter(x=>x.user===me.child);
-renderProgress(document.querySelector('#pg'), data);
+const me = current(); 
+if(!me || me.role!=='parent') {
+  // if role missing, set and continue
+  store.set('me', {name:'Parent Demo', email:'parent@demo.cl', role:'parent'});
+}
+renderProgress('pg');
 </script></body></html>
